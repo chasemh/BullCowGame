@@ -6,7 +6,7 @@ Last Update: 16/01/2017
 * I want a mental challenge
 * I want to feel smart / prove myself
 * I miss word puzzles
-* I want a challenge someone
+* I want to challenge someone
 
 ## Concept and Rules
 * Cows and Bulls is a "guess the isogram" game
