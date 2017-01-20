@@ -1,5 +1,7 @@
 #include "FBullCowGame.h"
 
+using FString = std::string;
+using int32 = int;
 
 FBullCowGame::FBullCowGame() {
 	Reset();
@@ -8,9 +10,9 @@ FBullCowGame::FBullCowGame() {
 FBullCowGame::~FBullCowGame() {
 }
 
-int FBullCowGame::GetMaxTries() const { return MyMaxTries; }
+int32 FBullCowGame::GetMaxTries() const { return MyMaxTries; }
 
-int FBullCowGame::GetCurrentTry() const { return MyCurrentTry; }
+int32 FBullCowGame::GetCurrentTry() const { return MyCurrentTry; }
 
 void FBullCowGame::Reset() {
 	MyCurrentTry = 1;
@@ -18,23 +20,15 @@ void FBullCowGame::Reset() {
 	return;
 }
 
-std::string FBullCowGame::GetNextGuess() {
-	return std::string();
-}
-
-void FBullCowGame::PlayGame() {
-	return;
-}
-
 bool FBullCowGame::IsGameOver() const{
 	return false;
 }
 
-bool FBullCowGame::ValidateGuess(std::string guess) {
+bool FBullCowGame::ValidateGuess(FString guess) {
 	return false;
 }
 
-bool FBullCowGame::IsIsogram(std::string str) {
+bool FBullCowGame::IsIsogram(FString str) {
 	return false;
 }
 

@@ -5,7 +5,14 @@
 
 //Best Practice: Don't use namespaces in header files.
 
-constexpr int MAX_TRIES = 8;
+//FString = Mutable string, typically used internally for Unreal.
+//FText = Typically reserved for user output
+
+// Aliases that will be more compatible with Unreal when it is used.
+using FString = std::string;
+using int32 = int;
+
+constexpr int32 MAX_TRIES = 8;
 
 class FBullCowGame {
 public:
@@ -15,8 +22,8 @@ public:
 	
 	// Best Practice: Accessors methods should have the const qualifier
 	// This prevents modifications of the object parameters when accessing them.
-	int GetMaxTries() const;
-	int GetCurrentTry() const;
+	int32 GetMaxTries() const;
+	int32 GetCurrentTry() const;
 	bool IsGameOver() const;
 
 	void Reset();
@@ -26,12 +33,12 @@ public:
 
 private:
 	// Initialized in constructor
-	int MyMaxTries;
-	int MyCurrentTry;
+	int32 MyMaxTries;
+	int32 MyCurrentTry;
 
 	// TODO Should these be public static methods?
-	bool ValidateGuess( std::string guess );
-	bool IsIsogram( std::string str );
+	bool ValidateGuess( FString guess );
+	bool IsIsogram( FString str );
 	void PrintBull() const;
 	void PrintCow() const;
 };
