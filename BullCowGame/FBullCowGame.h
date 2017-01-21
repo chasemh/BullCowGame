@@ -23,7 +23,8 @@ struct FBullCowCount {
 // OK for example because of the high level scoping of the enum's values.
 // Enums are useful for provding richer, more meaningful return values.
 // In this case, we are using enums sort of like exit/error codes.
-enum class EWordStatus {
+enum class EGuessStatus {
+	Invalid,
 	OK,
 	Not_Isogram,
 	Wrong_Length,
@@ -45,24 +46,23 @@ public:
 	int32 GetMaxTries() const;
 	int32 GetCurrentTry() const;
 	int32 GetHiddenWordLength() const;
-
-	bool IsGameOver() const;
+	bool IsGameWon() const;
 
 	void Reset();
-	// TODO Provide a method submitting valid guesses
-	// method should could all bulls and cows and update the current turn number
-	// Assumes this is a valid guess.
-	FBullCowCount SubmitGuess(FString);
+	FBullCowCount SubmitValidGuess(FString);
+
+	EGuessStatus ValidateGuess(FString);
 
 private:
 	// Initialized in constructor
 	int32 MyMaxTries;
 	int32 MyCurrentTry;
 	FString MyHiddenWord;
+	bool bGameWon;
 
 	// TODO Should these be public static methods?
-	EWordStatus ValidateGuess( FString);
-	bool IsIsogram( FString);
+	bool IsIsogram( FString ) const;
+	bool IsLowercase( FString ) const;
 	void PrintBull() const;
 	void PrintCow() const;
 };
