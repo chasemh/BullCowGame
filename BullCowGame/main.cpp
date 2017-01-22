@@ -39,6 +39,20 @@ int main() {
 
 // Introduce the Game
 void PrintIntro() {
+
+
+	std::cout << "  ____        _ _                 _____" << std::endl;
+	std::cout << " |  _ \\      | | |       ___     / ____|" << std::endl;
+	std::cout << " | |_) |_   _| | |___   ( _ )   | |     _____      _____" << std::endl;
+	std::cout << " |  _ <| | | | | / __|  / _ \\/\\ | |    / _ \\ \\ /\\ / / __|" << std::endl;
+	std::cout << " | |_) | |_| | | \\__ \\ | (_>  < | |___| (_) \\ V  V /\\__ \\" << std::endl;
+	std::cout << " |____/ \\__,_|_|_|___/  \\___/\\/  \\_____\\___/ \\_/\\_/ |___/" << std::endl;
+	std::cout << "                           /" << std::endl;
+	std::cout << "       \\|/          (__)  /" << std::endl;
+	std::cout << "             /------(oo) /      \\|/  ^__^" << std::endl;
+	std::cout << "            / || B  (__)             (oo)------\\" << std::endl;
+	std::cout << "           *  ||----||    \\|/        (__) C  ||  *  \\|/" << std::endl;
+	std::cout << "          \\|/                   \\|/    ||---w||" << std::endl;
 	
 	std::cout << "\n\nWelcome to Bulls and Cows, a fun word game.\n";
 	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength() << " letter isogram I'm thinking of?\n";
@@ -74,27 +88,25 @@ FText GetValidGuess() {
 	do {
 
 		int32 CurrentTry = BCGame.GetCurrentTry();
-		std::cout << "Try " << CurrentTry << ": Please guess an isogram: ";
+		std::cout << "Try " << CurrentTry << " of " << BCGame.GetMaxTries() << ": Please guess an isogram: ";
 		std::getline( std::cin, Guess );
 
 		Status = BCGame.ValidateGuess( Guess );
 
 		switch ( Status ) {
 		case EGuessStatus::Wrong_Length:
-			std::cout << "Please enter a " << BCGame.GetHiddenWordLength() << " letter word.\n";
+			std::cout << "Please enter a " << BCGame.GetHiddenWordLength() << " letter word.\n\n";
 			break;
 		case EGuessStatus::Not_Isogram:
-			std::cout << "Please enter a " << BCGame.GetHiddenWordLength() << " isogram. An isogram has no repeating letters.\n";
+			std::cout << "Please enter a " << BCGame.GetHiddenWordLength() << " isogram. An isogram has no repeating letters.\n\n";
 			break;
 		case EGuessStatus::Not_Lowercase:
-			std::cout << "Please enter a " << BCGame.GetHiddenWordLength() << " letter word with all lowercase letters.\n";
+			std::cout << "Please enter a " << BCGame.GetHiddenWordLength() << " letter word with all lowercase letters.\n\n";
 			break;
 		default:
 			// Guess appears to be valid
 			break;
 		}
-
-		std::cout << std::endl;
 
 	} while ( Status != EGuessStatus::OK ); // Keep looping until we obtain no errors from the input.
 
