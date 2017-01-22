@@ -1,5 +1,4 @@
 #include "FBullCowGame.h"
-#include <map>
 #define TMap std::map
 
 using FString = std::string;
@@ -9,22 +8,39 @@ constexpr int32 MAX_TRIES = 8;
 const FString HIDDEN_WORD = "planet";
 
 FBullCowGame::FBullCowGame() {
+	// Only need to setup the Isograms map once
+	ReadIsogramsFromFile();
 	Reset();
 }
 
 FBullCowGame::~FBullCowGame() {
 }
 
-int32 FBullCowGame::GetMaxTries() const { return MyMaxTries; }
 int32 FBullCowGame::GetCurrentTry() const { return MyCurrentTry; }
 int32 FBullCowGame::GetHiddenWordLength() const { return MyHiddenWord.length(); }
 bool FBullCowGame::IsGameWon() const { return bGameWon; }
 
+int32 FBullCowGame::GetMaxTries() const { 
+	TMap< int32, int32 > LengthToMaxTries{
+		{3, 4},
+		{4, 7},
+		{5, 10},
+		{6, 15},
+		{7, 20}
+	};
+	return LengthToMaxTries[GetHiddenWordLength()];
+}
+
 void FBullCowGame::Reset() {
 	MyCurrentTry = 1;
-	MyMaxTries = MAX_TRIES;
-	MyHiddenWord = HIDDEN_WORD;
 	bGameWon = false;
+	return;
+}
+
+void FBullCowGame::SetHiddenWord( int32 WordLength )
+{
+	int32 randomIndex = rand() % Isograms[WordLength].size();
+	MyHiddenWord = Isograms[WordLength][randomIndex];
 	return;
 }
 
@@ -128,8 +144,18 @@ bool FBullCowGame::IsLowercase( FString Word ) const {
 	return true;
 }
 
-void FBullCowGame::PrintBull() const {
-}
+void FBullCowGame::ReadIsogramsFromFile()
+{
+	// Open up the isograms file
+	// Read in all of the contents and populate the words map
+	std::ifstream IsogramFile;
+	FString CurrentLine = "";
 
-void FBullCowGame::PrintCow() const {
+	IsogramFile.open( "../isograms.txt", std::ios::in );
+	while ( std::getline( IsogramFile, CurrentLine ) ) {
+		Isograms[CurrentLine.length()].push_back( CurrentLine );
+	}
+
+	IsogramFile.close();
+	return;
 }

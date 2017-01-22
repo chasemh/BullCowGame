@@ -1,7 +1,11 @@
 #pragma once
 // Directive above ensures this class is only imported once 
 #include <iostream>
+#include <fstream>
 #include <string>
+#include <map>
+#include <vector>
+#define TMap std::map
 
 //Best Practice: Don't use namespaces in header files.
 
@@ -49,20 +53,18 @@ public:
 	bool IsGameWon() const;
 
 	void Reset();
+	void SetHiddenWord( int32 );
 	FBullCowCount SubmitValidGuess(FString);
-
 	EGuessStatus ValidateGuess(FString);
 
 private:
 	// Initialized in constructor
-	int32 MyMaxTries;
 	int32 MyCurrentTry;
 	FString MyHiddenWord;
 	bool bGameWon;
+	TMap< int32, std::vector< FString > > Isograms;
 
-	// TODO Should these be public static methods?
 	bool IsIsogram( FString ) const;
 	bool IsLowercase( FString ) const;
-	void PrintBull() const;
-	void PrintCow() const;
+	void ReadIsogramsFromFile();
 };

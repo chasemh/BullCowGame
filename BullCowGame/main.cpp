@@ -22,6 +22,10 @@ void PlayGame();
 FText GetValidGuess();
 bool AskToPlayAgain();
 void PrintGameSummary();
+int32 GetValidDesiredWordLength();
+
+constexpr int32 MAX_WORD_LENGTH = 7;
+constexpr int32 MIN_WORD_LENGTH = 3;
 
 FBullCowGame BCGame; // Instantiate a new game
 
@@ -54,8 +58,7 @@ void PrintIntro() {
 	std::cout << "           *  ||----||    \\|/        (__) C  ||  *  \\|/" << std::endl;
 	std::cout << "          \\|/                   \\|/    ||---w||" << std::endl;
 	
-	std::cout << "\n\nWelcome to Bulls and Cows, a fun word game.\n";
-	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength() << " letter isogram I'm thinking of?\n";
+	std::cout << "\n\nWelcome to Bulls and Cows, a fun word game.\n\n";
 	return;
 }
 
@@ -63,6 +66,13 @@ void PrintIntro() {
 // Allow the Player to make a set number of guesses
 void PlayGame() {
 
+	// Ask the player for the length of isogram they would like 
+	int32 WordLength = GetValidDesiredWordLength();
+
+	// Get the game to find an isogram with the desired length
+	BCGame.SetHiddenWord( WordLength );
+
+	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength() << " letter isogram I'm thinking of?\n";
 	int32 MaxTries = BCGame.GetMaxTries();
 	std::cout << "Max Tries: " << MaxTries << std::endl;
 
@@ -115,7 +125,7 @@ FText GetValidGuess() {
 
 bool AskToPlayAgain() {
 
-	std::cout << "Would you like to play again with the same word? (y/n): ";
+	std::cout << "Would you like to play again? (y/n): ";
 	FText Response = "";
 	std::getline(std::cin, Response);
 
@@ -133,4 +143,37 @@ void PrintGameSummary() {
 		std::cout << "Sorry, you didn't guess the isogram. Better luck next time.\n";
 	}
 	return;
+}
+
+int32 GetValidDesiredWordLength()
+{
+	
+	int32 Choice = -1;
+	bool ValidChoice = false;
+
+	do {
+
+		std::cout << "What length isogram would you like to play the game with?\n";
+		std::cout << "Currently Supported Isogram Lengths: 3, 4, 5, 6 and 7.\n\n";
+		std::cout << "Please enter your desired isogram length: ";
+		FText Response = "";
+		std::getline( std::cin, Response );
+		// Include handling for when users provide a non-integer value.
+		try {
+			Choice = stoi( Response );
+			if ( Choice >= MIN_WORD_LENGTH && Choice <= MAX_WORD_LENGTH ) {
+				ValidChoice = true;
+			}
+			else {
+				std::cout << "Whoops! It looks like " << Choice << " is not a valid value. Please try again.\n\n";
+			}
+		}
+		catch ( std::invalid_argument )
+		{
+			std::cout << "Whoops! It looks like " << Response << " is not an integer value. Please try again.\n\n";
+		}
+		
+	} while ( !ValidChoice );
+
+	return Choice;
 }
