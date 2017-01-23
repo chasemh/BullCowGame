@@ -2,7 +2,7 @@
 
 ## 2017-01-22 Chase Hennion
 
-* Adding work that coverts lectures 48 and 49, which is the end of Section 2.
+* Adding work that covers lectures 48 and 49, which is the end of Section 2.
 
 ## 2017-01-21 Chase Hennion
 
