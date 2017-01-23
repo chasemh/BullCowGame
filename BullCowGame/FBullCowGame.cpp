@@ -1,3 +1,12 @@
+/*
+Implementation of the FBullCowGame class.
+
+Please see FBullCowGame.h for class documentation.
+
+Author: Chase Hennion <chase_hennion@outlook.com>
+*/
+
+#pragma once
 #include "FBullCowGame.h"
 #define TMap std::map
 
@@ -21,6 +30,8 @@ int32 FBullCowGame::GetHiddenWordLength() const { return MyHiddenWord.length(); 
 bool FBullCowGame::IsGameWon() const { return bGameWon; }
 
 int32 FBullCowGame::GetMaxTries() const { 
+	// The number of tries available is dictated by the length of the word.
+	// The longer the word, the more tries available.
 	TMap< int32, int32 > LengthToMaxTries{
 		{3, 4},
 		{4, 7},
@@ -39,14 +50,13 @@ void FBullCowGame::Reset() {
 
 void FBullCowGame::SetHiddenWord( int32 WordLength )
 {
+	// Get a random index within the vector containing isograms of the 
+	// same size desired by the player.
 	int32 randomIndex = rand() % Isograms[WordLength].size();
 	MyHiddenWord = Isograms[WordLength][randomIndex];
 	return;
 }
 
-// Receives a Valid Guess
-// Increments Turn
-// Returns the count of bulls and cows
 FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess) {
 	
 	MyCurrentTry++;
@@ -84,7 +94,7 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess) {
 EGuessStatus FBullCowGame::ValidateGuess( FString Guess ) {
 
 	
-	if ( !IsIsogram( Guess ) ) { //TODO Write function
+	if ( !IsIsogram( Guess ) ) {
 		// If the guess is not an Isogram
 		return EGuessStatus::Not_Isogram;
 	} 
@@ -132,7 +142,6 @@ bool FBullCowGame::IsIsogram(FString Word) const {
 	return true;
 }
 
-// Checks to see if all characters in the provided string are lowercase.
 bool FBullCowGame::IsLowercase( FString Word ) const {
 
 	for ( auto Letter : Word ) {

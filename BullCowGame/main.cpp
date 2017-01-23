@@ -2,21 +2,20 @@
  Makes use of the FBullCowGame Class
  Acts as the view in the MVC pattern. Handles all user interaction.
  Internal logic is in the FBullCowGame class.
+
+ Author: Chase Hennion <chase_hennion@outlook.com>
 */
 
+#pragma once
 #include <iostream>
 #include <string>
 #include "FBullCowGame.h"
-
-// # Designates a preprocessor directive
-// Use <> for including standard libraries
-// Use "" for your including your own header files
 
 // Aliases that will be more compatible with Unreal when it is used.
 using FText = std::string;
 using int32 = int;
 
-// Method Signatures/Prototypes
+// Function Signatures/Prototypes
 void PrintIntro();
 void PlayGame();
 FText GetValidGuess();
@@ -24,12 +23,14 @@ bool AskToPlayAgain();
 void PrintGameSummary();
 int32 GetValidDesiredWordLength();
 
+// Constants
 constexpr int32 MAX_WORD_LENGTH = 7;
 constexpr int32 MIN_WORD_LENGTH = 3;
 
-FBullCowGame BCGame; // Instantiate a new game
+// Global Variables
+FBullCowGame BCGame;  // Object is reused across games.
 
-// Entry point for application
+// Program Start Point
 int main() {
 
 	PrintIntro();
@@ -41,7 +42,7 @@ int main() {
 	return 0;
 }
 
-// Introduce the Game
+// Introduces the Game to the Player
 void PrintIntro() {
 
 
@@ -62,8 +63,7 @@ void PrintIntro() {
 	return;
 }
 
-// Play the Game
-// Allow the Player to make a set number of guesses
+// Plays a single game to completion.
 void PlayGame() {
 
 	// Ask the player for the length of isogram they would like 
@@ -84,12 +84,12 @@ void PlayGame() {
 		std::cout << " Cows = " << BullCowCount.Cows << "\n\n";
 	}
 
-	// TODO Add a Game summary
 	PrintGameSummary();
 	return;
 }
 
-// Loop continually until the user provides a valid guess.
+// Obtains a valid guess from the player.
+// A guess is valid if it is the same length as the hidden word, is an isogram, and is all lowercase.
 FText GetValidGuess() { 
 
 	EGuessStatus Status = EGuessStatus::Invalid;
@@ -123,6 +123,8 @@ FText GetValidGuess() {
 	return Guess;
 }
 
+// Asks the player if they would like to play the game again.
+// @return  true if the player responds yes, false otherwise
 bool AskToPlayAgain() {
 
 	std::cout << "Would you like to play again? (y/n): ";
@@ -145,6 +147,7 @@ void PrintGameSummary() {
 	return;
 }
 
+// Prompts the player to enter their desired isogram length for the game.
 int32 GetValidDesiredWordLength()
 {
 	
