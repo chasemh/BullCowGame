@@ -16,6 +16,7 @@
 Implementation of the Bull Cow Game presented in Section 2 of the Udemy Unreal Course (https://www.udemy.com/unrealcourse)
 
 Currently, the console form of the game, presented in Section 2 of the course, has been completed.
+
 The Unreal portion of the course, presented in Section 3, is currently in progress.
 
 Author: Chase Hennion <chase_hennion@outlook.com>
